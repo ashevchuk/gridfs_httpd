@@ -14,7 +14,7 @@ import (
     "labix.org/v2/mgo/bson"
 )
 
-var cpucores = flag.Int("cpucores", 1, "cpu cores to use")
+var ncpu = flag.Int("ncpu", 1, "cpu cores to use")
 var collection = flag.String("collection", "fs", "GridFS collection")
 var database = flag.String("database", "", "GridFS database")
 var host = flag.String("host", "127.0.0.1", "GridFS host")
@@ -126,7 +126,7 @@ func main() {
 		os.Exit(-1)
 	}
 
-	runtime.GOMAXPROCS(*cpucores)
+	runtime.GOMAXPROCS(*ncpu)
 
 	mongo_session, _ = mgo.Dial(fmt.Sprintf("mongodb://%s:%s?connect=direct", *host, *port))
 	mongo_session.SetMode(mgo.Monotonic, true)
